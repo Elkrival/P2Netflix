@@ -5,7 +5,7 @@ console.log('hey boo');
         ev.preventDefault();
     var input = document.getElementById('input');
         inputValue = input.value;
-        var url = 'https://aqueous-oasis-59192.herokuapp.com';//production
+        var url = 'https://aqueous-oasis-59192.herokuapp.com/';//production
         //var url = 'http://localhost:3000/';
         var data = {
             input: inputValue
