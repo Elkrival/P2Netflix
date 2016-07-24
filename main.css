@@ -1,0 +1,36 @@
+#container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+#info {
+    height: 900px;
+    width: 100%;
+    border: solid black 1px;
+    display: flex;
+    flex-flow: wrap;
+}
+.stats{
+    height: 50%;
+    width: 50%
+    border: solid pink 1px;
+    display: flex;
+}
+
+.babbles{
+    height: 50%;
+    width: 100%;
+    border: solid black 1px;
+    align-self: flex-end;
+}
+.image{
+    height: 50%;
+    width: 50%;
+    border: solid green 1px;
+    background-size: contain;
+}
+.buttons{
+    align-self: flex-end;
+}
