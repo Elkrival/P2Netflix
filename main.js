@@ -5,25 +5,26 @@ console.log('hey boo');
     var movie = []
     var submit = document.getElementById('submit').addEventListener('click', function(ev){
         ev.preventDefault();
-    var input = document.getElementById('input');
+        var input = document.getElementById('input');
         inputvalue = input.value;
-        //var url = 'https://aqueous-oasis-59192.herokuapp.com/';//production
-        var url = 'http://localhost:3000/';
+        var url = 'https://aqueous-oasis-59192.herokuapp.com';//production
+        // var url = 'http://localhost:3000/';
         var data = {
             input: inputvalue
         };
         console.log(data);
         $.ajax({
-            url: url + 'netflix/search',
+            url: url + '/netflix/search',
             method: 'POST',
             data: data,
             dataType: 'json'
-    }).done(function(response) {
+        }).done(function(response) {
             movieObj(response);
             movData(resArr)
         });
 
     });
+
 function movieObj(response) {
     data = response.ITEMS;
     for (var i = 0; i < data.length; i++) {
@@ -49,13 +50,17 @@ function movieObj(response) {
              divs.classList.add('stats');
              ul = document.createElement('ul');
              faves = document.createElement('button');
-             initListener(faves, resArr[i])
              faves.classList.add('buttons')
              favText = document.createTextNode('Add to Favorites')
+             babbs = document.createElement('input');
+             babbs.classList.add('babbles')
+             babbs.placeholder = 'Add your comment'
+             initListener(faves, resArr[i], babbs)
              faves.appendChild(favText)
              info.appendChild(divs);
              divs.appendChild(ul);
              divs.appendChild(faves)
+             divs.appendChild(babbs)
              for (var movie in resArr[i]){
                  if (movie ==='title'){
                      li = document.createElement('li');
@@ -107,8 +112,9 @@ function movieObj(response) {
             //  return faveObj
          }
      }
-function initListener(button, data) {
-    beURL = 'http://localhost:3000';
+function initListener(button, data, input) {
+    // beURL = 'http://localhost:3000'; // testing
+    beURL = 'https://aqueous-oasis-59192.herokuapp.com' //production
     button.addEventListener('click', function(e) {
         console.log('BUTTON CLICKED', data);
         $.ajax({
@@ -118,6 +124,7 @@ function initListener(button, data) {
             dataType: 'json'
         }).done(function(response) {
             console.log(response);
+            console.log('Added to Favorites!' + response)
         });
     });
 }
