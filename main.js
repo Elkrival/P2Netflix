@@ -13,7 +13,7 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
         delButton(data)
     })
 });
-        var submit = document.getElementById('submit').addEventListener('click', function (ev) {
+var submit = document.getElementById('submit').addEventListener('click', function (ev) {
             ev.preventDefault();
             var input = document.getElementById('input');
             inputvalue = input.value;
@@ -33,7 +33,7 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
 
         });
 
-        function movieObj(response) {
+function movieObj(response) {
             data = response.ITEMS;
             for (var i = 0; i < data.length; i++) {
                 //console.log(data[i]);
@@ -52,7 +52,7 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
         }
 
 //function to push append information to screen each div will have it's own id, and it will be incremented by i as per the loop
-        function movData(resArr) {
+function movData(resArr) {
             for (var i = 0; i < resArr.length; i++) {
                 info = document.getElementById('info');
                 divs = document.createElement('div');
@@ -112,19 +112,12 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
                         ul.appendChild(li)
                     }
                 }
-                // for(var movie in resArr[i]);{
-                //     if(movie === 'poster'){
-                //         imgDiv.setAttribute('src', resArr[i].poster)
-                //     }
-                // }
-                // resArr.push(faveObj)
-                //  return faveObj
             }
         }
 ///*******************************FUNCTION SAVES MOVIES TO DATABASE*********************
-        function initListener(button, data, input) {
+function initListener(button, data) {
             //beURL = 'https://aqueous-oasis-59192.herokuapp.com' //production
-            button.addEventListener('click', function (e) {
+            button.addEventListener('click', function (ev) {
                 console.log('BUTTON CLICKED', data);
                 $.ajax({
                     url: url + '/netflix/new',
@@ -138,12 +131,13 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
             });
         }
 //***********************FUNCTION MAKES DELETE ButTON***************
-        function delButton(data) {
+function delButton(data) {
             for (var i = 0; i < data.length; i++) {
                 info = document.getElementById('info');
                 divs = document.createElement('div');
                 divs.classList.add('showFavorites');
                 deleteButton = document.createElement('button');
+                deleteListener(deleteButton, data[i])
                 deleteButton.classList.add('delete');
                 deleteText = document.createTextNode('Remove');
                 ul = document.createElement('ul');
@@ -194,6 +188,23 @@ var showSaved = document.getElementById('showAll').addEventListener('click', fun
                     }
                 }
             }
+            console.log(data[i])
         }
-
-
+//*******************console.log(data[0]._id) how to delete
+function deleteListener(button, data){
+            button.addEventListener('click', function(ev){
+                console.log("clicking the id", data._id)
+                var id = {id: data._id};
+                console.log(id)
+                console.log(data)
+                $.ajax({
+                    url: url + '/netflix/new/' + data._id,
+                    dataType: 'json',
+                    data: id,
+                    method: 'delete'
+                }).done(function(response){
+                    console.log(id + " has been deleted.");
+                    console.log(response);
+                }); // end ajax
+            });
+}
