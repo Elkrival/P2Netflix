@@ -30,3 +30,7 @@
 .buttons{
     align-self: flex-end;
 }
+#showAll{
+    position: static;
+
+}
