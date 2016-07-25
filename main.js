@@ -1,14 +1,16 @@
 console.log('hey boo');
     var resArr = [];
     var movObj = {};
+    var newMovie = {};
+    var movie = []
     var submit = document.getElementById('submit').addEventListener('click', function(ev){
         ev.preventDefault();
     var input = document.getElementById('input');
-        inputValue = input.value;
-        var url = 'https://aqueous-oasis-59192.herokuapp.com/';//production
-        //var url = 'http://localhost:3000/';
+        inputvalue = input.value;
+        //var url = 'https://aqueous-oasis-59192.herokuapp.com/';//production
+        var url = 'http://localhost:3000/';
         var data = {
-            input: inputValue
+            input: inputvalue
         };
         console.log(data);
         $.ajax({
@@ -17,7 +19,6 @@ console.log('hey boo');
             data: data,
             dataType: 'json'
     }).done(function(response) {
-
             movieObj(response);
             movData(resArr)
         });
@@ -47,23 +48,14 @@ function movieObj(response) {
              divs = document.createElement('div');
              divs.classList.add('stats');
              ul = document.createElement('ul');
-             favorites = document.createElement('button');
-             favorites.setAttribute('id', "fave" + i);
-             favorites.classList.add('buttons');
-             deletes = document.createElement('button');
-             deletes.setAttribute('id', "dele" + i);
-             deletes.classList.add('buttons');
-             fButton = document.createTextNode('Add to Chill');
-             dButton = document.createTextNode('No Chill');
-             imgDiv = document.createElement('div');
-             imgDiv.classList.add('image');
-             favorites.appendChild(fButton);
-             deletes.appendChild(dButton);
+             faves = document.createElement('button');
+             initListener(faves, resArr[i])
+             faves.classList.add('buttons')
+             favText = document.createTextNode('Add to Favorites')
+             faves.appendChild(favText)
              info.appendChild(divs);
              divs.appendChild(ul);
-             divs.appendChild(favorites);
-             divs.appendChild(deletes);
-             info.appendChild(imgDiv);
+             divs.appendChild(faves)
              for (var movie in resArr[i]){
                  if (movie ==='title'){
                      li = document.createElement('li');
@@ -106,12 +98,26 @@ function movieObj(response) {
                      ul.appendChild(li)
                  }
              }
-             for(var movie in resArr[i]);{
-                 if(movie === 'poster'){
-                     imgDiv.setAttribute('src', resArr[i].poster)
-                 }
-             }
+             // for(var movie in resArr[i]);{
+             //     if(movie === 'poster'){
+             //         imgDiv.setAttribute('src', resArr[i].poster)
+             //     }
+             // }
+            // resArr.push(faveObj)
+            //  return faveObj
          }
      }
-
-
+function initListener(button, data) {
+    beURL = 'http://localhost:3000';
+    button.addEventListener('click', function(e) {
+        console.log('BUTTON CLICKED', data);
+        $.ajax({
+            url: beURL + '/netflix/new',
+            method: 'POST',
+            data: data,
+            dataType: 'json'
+        }).done(function(response) {
+            console.log(response);
+        });
+    });
+}
