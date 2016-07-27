@@ -2,8 +2,8 @@ console.log('hey boo');
 var resArr = [];
 var movObj = {};
 var movie = [];
-var url = 'http://localhost:3000';
-//var url = 'https://aqueous-oasis-59192.herokuapp.com';//production
+//var url = 'http://localhost:3000';
+var url = 'https://aqueous-oasis-59192.herokuapp.com';//production
 var showSaved = document.getElementById('showAll').addEventListener('click', function (ev) {
     ev.preventDefault();
     $.get(url + '/netflix/new', function (res) {
@@ -61,7 +61,7 @@ function movData(resArr) {
                 faves = document.createElement('button');
                 faves.classList.add('buttons');
                 favText = document.createTextNode('Add to Favorites');
-                babbs = document.createElement('input');
+                babbs = document.createElement('textarea');
                 babbs.classList.add('babbles');
                 babbs.placeholder = 'Add your comment';
                 initListener(faves, resArr[i], babbs);
@@ -208,3 +208,4 @@ function deleteListener(button, data){
                 }); // end ajax
             });
 }
+

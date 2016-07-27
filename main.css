@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     flex-flow: column;
+    overflow-x: scroll;
 }
 #info {
     height: 900px;
