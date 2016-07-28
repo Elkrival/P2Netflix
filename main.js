@@ -64,7 +64,7 @@ function movData(resArr) {
                 babbs = document.createElement('textarea');
                 babbs.classList.add('babbles');
                 babbs.placeholder = 'Add your comment';
-                initListener(faves, resArr[i], babbs);
+                saveFavorites(faves, resArr[i]);
                 faves.appendChild(favText);
                 info.appendChild(divs);
                 divs.appendChild(ul);
@@ -115,8 +115,7 @@ function movData(resArr) {
             }
         }
 ///*******************************FUNCTION SAVES MOVIES TO DATABASE*********************
-function initListener(button, data) {
-            //beURL = 'https://aqueous-oasis-59192.herokuapp.com' //production
+function saveFavorites(button, data) {
             button.addEventListener('click', function (ev) {
                 console.log('BUTTON CLICKED', data);
                 $.ajax({
